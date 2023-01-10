@@ -50,3 +50,35 @@ p {
     font-size: 16px;
     margin: 10px 0;
 }
+
+#mail{
+    max-width: 500px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.20);
+    padding: 20px;
+}
+
+.form-input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.select-arrow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 38px;
+    pointer-events: none;
+    background: #fff
+    url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjUiPjxwYXRoIGQ9Ik0yIDBMMCAyaDR6bTAgNUwwIDNoNHoiIGZpbGw9IiMwMDciLz48L3N2Zz4=) 
+    no-repeat center;
+}
+
