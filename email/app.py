@@ -12,6 +12,7 @@ def index():
          f"To: {flask.request.form['recipient']}\n"
          f"Subject: {flask.request.form['subject']}\n"
          f"Style: {flask.request.form['style']}\n"
+         f"Format: Greeting, body, ending\n"
          f"\n{flask.request.form['message']}\n"))
         completions = openai.Completion.create(
             engine="text-davinci-002",
@@ -22,8 +23,16 @@ def index():
             temperature=0.5,
         )
         generated_message = completions.choices[0].text
-        return flask.render_template('index.html', generated_message=generated_message, recipient=flask.request.form['recipient'], subject=flask.request.form['subject'], style=flask.request.form['style'], message=flask.request.form['message'])
+
+        # Split the generated message into greeting, body, and ending
+        greeting, body, ending = generated_message.rsplit("\n\n", 2)
+        print(greeting + "greeting ends")
+        print(body + "body ends")
+        print(ending + "ending ends")
+
+        return flask.render_template('index.html', greeting=greeting, body=body, ending=ending, recipient=flask.request.form['recipient'], subject=flask.request.form['subject'], style=flask.request.form['style'], message=flask.request.form['message'])
     return flask.render_template('index.html')
+
 
 
 if __name__ == '__main__':

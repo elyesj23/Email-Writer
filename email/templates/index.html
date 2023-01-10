@@ -8,7 +8,7 @@
     <div style="display: flex;">
         <form action="/" method="post" style="flex: 1;">
             <label for="recipient">Recipient:</label><br>
-            <input type="text" id="recipient" name="recipient" value="{{ recipient }}"><br>
+            <input type="text" id="recipient" name="recipient" value="{{ recipient }}" placeholder="John"><br>
             <label for="subject">Subject:</label><br>
             <input type="text" id="subject" name="subject" value="{{ subject }}"><br>
             <label for="style">Style:</label><br>
@@ -17,14 +17,17 @@
             <textarea id="message" name="message" rows="4" cols="50">{{ message }}</textarea><br><br>
             <input type="submit" value="Submit">
         </form>
-        {% if generated_message %}
+        {% if greeting or body or ending %}
         <div style="flex: 1; margin-left: 20px;">
             <h2>Generated Email:</h2>
-            <p>{{ generated_message }}</p>
+            <p>{{ greeting }}</p>
+            <p>{{ body }}</p>
+            <p>{{ ending }}</p>
         </div>
-        {% endif %}
-    </div>
+    {% endif %}
+    
 </body>
 </html>
+
 
 
