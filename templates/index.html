@@ -7,6 +7,8 @@
 <body>
     <div style="display: flex;">
         <form action="/" method="post" style="flex: 1;">
+            <label for="sender">Sender:</label><br>
+            <input type="text" id="sender" name="sender" value="{{ sender }}" placeholder="Jane" class="form-input"><br>
             <label for="recipient">Recipient:</label><br>
             <input type="text" id="recipient" name="recipient" value="{{ recipient }}" placeholder="John" class="form-input"><br>
             <label for="subject">Subject:</label><br>
@@ -23,24 +25,28 @@
                 <option value="english" selected>English</option>
                 <option value="french">French</option>
                 <option value="spanish">Spanish</option>
+                <option value="german">German</option>
             </select>
-            <div class="select-arrow"></div>            
+            <div class="select-arrow"></div>   
+
+            <label for="length">Length:</label><br>
+            <input type="text" id="length" name="length" value="{{ length }}" placeholder="200" class="form-input"><br>
+            
             <label for="message">Message:</label><br>
             <textarea id="message" name="message" rows="4" cols="50" class="form-input">{{ message }}</textarea><br><br>
             <input type="submit" value="Submit" class="form-submit">
         </form>
                
-        {% if greeting or body or ending %}
+        {% if greeting or beginning or body or sign_off %}
         <div style="flex: 1; margin-left: 20px;" id="mail">
             <h2>Generated Email:</h2>
             <p>{{ greeting }}</p>
             <p>{{ beginning }}</p>
             <p>{{ body }}</p>
-            <p>{{ ending }}</p>
+            <p>{{ sign_off }}</p>
         </div>
     {% endif %}
 </body>
 </html>
-
 
 
