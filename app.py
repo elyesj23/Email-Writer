@@ -23,13 +23,13 @@ def index():
             engine = "text-davinci-002"
         prompt = (
             (f"Type: Email\n"
-            f"From: {flask.request.form['sender']}\n"
-            f"To: {flask.request.form['recipient']}\n"
-            f"Subject: {flask.request.form['subject']}\n"
+            f"Von: {flask.request.form['sender']}\n"
+            f"Zu: {flask.request.form['recipient']}\n"
+            f"Thema: {flask.request.form['subject']}\n"
             f"Style: {flask.request.form['style']}\n"
-            f"Language: {language}\n"
-            f"Length: {max_tokens}\n"
-            f"Format:Fully written Email\n"
+            f"Sprache: {language}\n"
+            f"Länge: {max_tokens}\n"
+            f"Format:Vollständig geschriebene E-Mail\n"
             f"\n{flask.request.form['message']}\n"))
 
         completions = openai.Completion.create(
