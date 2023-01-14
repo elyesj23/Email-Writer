@@ -13,25 +13,6 @@
             <input type="text" id="recipient" name="recipient" value="{{ recipient }}" placeholder="John" class="form-input"><br>
             <label for="subject">Subject:</label><br>
             <input type="text" id="subject" name="subject" value="{{ subject }}" class="form-input"><br>
-            <label for="style">Style:</label><br>
-            <select class="form-input" id="style" name="style">
-                <option value="Formal" selected>Formal</option>
-                <option value="Informal">Informal</option>
-            </select>
-            <div class="select-arrow"></div>
-            
-            <label for="language">Language:</label><br>
-            <select class="form-input" id="language" name="language">
-                <option value="english" selected>English</option>
-                <option value="french">French</option>
-                <option value="spanish">Spanish</option>
-                <option value="german">German</option>
-            </select>
-            <div class="select-arrow"></div>   
-
-            <label for="length">Length:</label><br>
-            <input type="text" id="length" name="length" value="{{ length }}" placeholder="200" class="form-input"><br>
-            
             <label for="message">Message:</label><br>
             <textarea id="message" name="message" rows="4" cols="50" class="form-input">{{ message }}</textarea><br><br>
             <input type="submit" value="Submit" class="form-submit">

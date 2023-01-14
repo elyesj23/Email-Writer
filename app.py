@@ -1,4 +1,5 @@
 import flask
+import requests
 import openai
 
 app = flask.Flask(__name__)
@@ -7,52 +8,71 @@ app = flask.Flask(__name__)
 def index():
     if flask.request.method == 'POST':
         openai.api_key = "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"
-        length=flask.request.form['length']
-        max_tokens=125
+        length = 200
+        max_tokens=200
         try:
             if length:
                 max_tokens = int(length)
                 if not 0 < max_tokens <= 500:
-                    max_tokens = 125
+                    max_tokens = 200
         except ValueError:
-            max_tokens = 125
-        language = flask.request.form['language']
-        if language == "German":
-            engine = "text-davinci-002-german"
-        else:
-            engine = "text-davinci-002"
+            max_tokens = 200
+
+
+
         prompt = (
             (f"Type: Email\n"
             f"Von: {flask.request.form['sender']}\n"
             f"Zu: {flask.request.form['recipient']}\n"
             f"Thema: {flask.request.form['subject']}\n"
-            f"Style: {flask.request.form['style']}\n"
-            f"Sprache: {language}\n"
-            f"Länge: {max_tokens}\n"
-            f"Format:Vollständig geschriebene E-Mail\n"
-            f"\n{flask.request.form['message']}\n"))
+            f"Format:Fully written Email\n"
+            f"\nSchreibe eine Email mit 200 Wörtern über  {flask.request.form['message']} in einem {flask.request.form['style']} ton\n"))
 
+        
         completions = openai.Completion.create(
-            engine=engine,
+            engine="text-davinci-002",
             prompt=prompt,
             max_tokens=max_tokens,
             n=1,
             stop=None,
-            temperature=0.5,
+            temperature=0.6,
         )
         print(prompt)
         generated_message = completions.choices[0].text
+
+        url = "https://api-free.deepl.com/v2/translate"
+        headers = {
+            "Authorization": "DeepL-Auth-Key b062df55-dee6-d717-9fb8-fa02cb214fb8:fx",
+            "User-Agent": "YourApp/1.2.3",
+            "Content-Type": "application/x-www-form-urlencoded",
+        }
+
+        data = {
+            "text": generated_message,
+            "target_lang": "de"
+        }
+
+        response = requests.post(url, headers=headers, data=data)
+
+        print(response.status_code)
+        print(response.json())
+        response_json = response.json()
+        translated_text = response_json['translations'][0]['text']
+
+
+
+        
+
         # Split the generated message into greeting, beginning, body, and sign-off
         try:
-            greeting, beginning, body, sign_off = generated_message.split("\n\n", 3)
-            print(generated_message)
+            greeting, beginning, body, sign_off = translated_text.split("\n\n", 3)
+            
         except ValueError:
-            print(generated_message)
-            greeting = generated_message
+            print(translated_text)
+            greeting = translated_text
             beginning = ""
             body = ""
             sign_off = ""
-
 
             
              
@@ -62,3 +82,4 @@ def index():
 
 if __name__ == '__main__':
     app.run()
+
