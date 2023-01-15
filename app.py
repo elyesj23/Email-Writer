@@ -1,8 +1,15 @@
 import flask
 import requests
 import openai
+import json
+from flask import Flask, request, jsonify,redirect,render_template
+import stripe
+import os
+
 
 app = flask.Flask(__name__)
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -63,6 +70,50 @@ def index():
         return flask.render_template('index.html', greeting=greeting, beginning=beginning, body=body, sign_off=sign_off, recipient=flask.request.form['recipient'], subject=flask.request.form['subject'], message=flask.request.form['message'])
     return flask.render_template('index.html')
 
+
+stripe.api_key = "sk_test_51MQ8TIEsdTh7VZgicQGZEqhkIyjZPgSmlV0cQ3f8sG5jlazr6FxNqOjfTBigCjo9AbDxy7yJuumQzXhn6uWYpZ5000GSpY1BN8"
+endpoint_secret = "whsec_a6cc887c04ddb9a429410362d58a4322f5b0cc9338e14c14158c5c7782f0774f"
+
+YOUR_DOMAIN = 'http://localhost:4242'
+#flask run --host=localhost --port=4242 
+
+
+@app.route('/create-checkout-session', methods=['POST'])
+def create_checkout_session():
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
+                    # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                    'price': 'price_1MQE85EsdTh7VZgiDY4NJAsd',
+                    'quantity': 1,
+                },
+            ],
+            mode='subscription',
+            success_url=YOUR_DOMAIN + '//success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=YOUR_DOMAIN + '/cancel',
+            automatic_tax={'enabled': True},
+        )
+    except Exception as e:
+        return str(e)
+
+    return redirect(checkout_session.url, code=303)
+
+@app.route('/checkout')
+def checkout():
+    return render_template('checkout.html')
+
+@app.route('/success')
+def success():
+    session_id = request.args.get('session_id')
+    session = stripe.checkout.Session.retrieve(session_id)
+    customer = stripe.Customer.retrieve(session.customer)
+    customer_email = customer.email
+
+    print(customer_email)
+    return render_template('success.html', customer_email=customer_email)
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(host="localhost",port=4242)
 
