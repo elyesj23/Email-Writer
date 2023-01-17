@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="index.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <title>Email Creator</title>
 </head>
@@ -8,7 +10,7 @@
     <div style="display: flex;">
         <form action="/" method="post" style="flex: 1;">
             <label for="sender">Sender:</label><br>
-            <input type="text" id="sender" name="sender" value="{{ sender }}" placeholder="Jane" class="form-input"><br>
+            <input type="text" id="sender" name="sender" value="{{ sender }}" placeholder="Jane" class="form-input">
             <label for="recipient">Recipient:</label><br>
             <input type="text" id="recipient" name="recipient" value="{{ recipient }}" placeholder="John" class="form-input"><br>
             <label for="subject">Subject:</label><br>
@@ -25,8 +27,31 @@
             <p>{{ beginning }}</p>
             <p>{{ body }}</p>
             <p>{{ sign_off }}</p>
+            <button id="copy-button" onclick="copyText()">Copy</button>
         </div>
     {% endif %}
+    <script>
+        function copyText() {
+            var copyText = document.getElementById("mail");
+            var text = "";
+            for (var i = 0; i < copyText.children.length; i++) {
+                if(copyText.children[i].nodeName !== "BUTTON" && copyText.children[i].textContent !== "Generated Email:")
+                    text += copyText.children[i].textContent + "\n";
+            }
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("Copy");
+            textArea.remove();
+            alert("Copied the text: " + text);
+        }
+    </script>
+    
+    
+    
+    
+    
 </body>
 </html>
 

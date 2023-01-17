@@ -67,13 +67,12 @@ def index():
             
              
 
-        return flask.render_template('index.html', greeting=greeting, beginning=beginning, body=body, sign_off=sign_off, recipient=flask.request.form['recipient'], subject=flask.request.form['subject'], message=flask.request.form['message'])
+        return flask.render_template('index.html', sender=flask.request.form['sender'], greeting=greeting, beginning=beginning, body=body, sign_off=sign_off, recipient=flask.request.form['recipient'], subject=flask.request.form['subject'], message=flask.request.form['message'])
     return flask.render_template('index.html')
 
 
 stripe.api_key = "sk_test_51MQ8TIEsdTh7VZgicQGZEqhkIyjZPgSmlV0cQ3f8sG5jlazr6FxNqOjfTBigCjo9AbDxy7yJuumQzXhn6uWYpZ5000GSpY1BN8"
-endpoint_secret = "whsec_a6cc887c04ddb9a429410362d58a4322f5b0cc9338e14c14158c5c7782f0774f"
-
+endpoint_secret = 'whsec_a6cc887c04ddb9a429410362d58a4322f5b0cc9338e14c14158c5c7782f0774f'
 YOUR_DOMAIN = 'http://localhost:4242'
 #flask run --host=localhost --port=4242 
 
@@ -111,8 +110,24 @@ def success():
     customer_email = customer.email
 
     print(customer_email)
+    #SQL statement here 
     return render_template('success.html', customer_email=customer_email)
 
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    event = json.loads(request.data)
+    if event['type'] == 'customer.subscription.deleted':
+        # Get the customer ID from the event
+        customer_id = event['data']['object']['customer']
+        customer = stripe.Customer.retrieve(customer_id)
+        customer_email = customer.email
+        # Update the user's access in your database
+        update_user_access(customer_email, False)
+    return '', 200
+
+def update_user_access(customer_email, has_access):
+    print('cancelled premium access')
+    pass
 
 if __name__ == '__main__':
     app.run(host="localhost",port=4242)
