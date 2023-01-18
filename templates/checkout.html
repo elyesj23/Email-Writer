@@ -2,22 +2,127 @@
 <html>
   <head>
     <title>Buy cool new product</title>
-    <link rel="stylesheet" href="stylecheckout.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
     <script src="https://js.stripe.com/v3/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/checkout.css">
   </head>
   <body>
-    <section>
-      <div class="product">
-        <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
-        <div class="description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
-        </div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="#">MakeA(I)Mail</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/checkout">Premium</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a id="flag-button" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">🇺🇸</a>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="changeFlag('🇩🇪','de')">🇩🇪</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="changeFlag('🇫🇷','fr')">🇫🇷</a></li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      </ul>
+                    </li>                      
+          </div>
       </div>
-      <form action="/create-checkout-session" method="POST">
-        <button type="submit" id="checkout-button">Checkout</button>
-      </form>
+  </nav>
+    <section id="pricing" class="pricing-content section-padding">
+      <div class="container">					
+        <div class="section-title text-center">
+          <h1>Pricing Plan</h1>
+          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        </div>					
+        <div class="row text-center">									
+          <div class="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s" data-wow-offset="0">
+            <div class="single-pricing">
+              <div class="price-head">								
+                <h2>Starter</h2>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <h1 class="price">$29</h1>
+              <h5>Monthly</h5>
+              <ul>
+                <li>5 website</li>
+                <li>50GB Disk Space</li>
+                <li>50 Email Accounts</li>
+              </ul>
+              <form action="/create-checkout-session" method="POST">
+                <button type="submit" id="checkout-button">Checkout</button>
+              </form>
+            </div>
+          </div><!--- END COL -->	
+          <div class="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
+            <div class="single-pricing">
+              <div class="price-head">								
+                <h2>popular</h2>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <h1 class="price">$49</h1>
+              <h5>Monthly</h5>
+              <ul>
+                <li>10 website</li>
+                <li>50GB Disk Space</li>
+                <li>50 Email Accounts</li>
+                <li>50GB Monthly Bandwidth</li>
+                <li>10 Subdomains</li>
+              </ul>
+              <form action="/create-checkout-session" method="POST">
+                <button type="submit" id="checkout-button">Checkout</button>
+              </form>
+            </div>
+          </div><!--- END COL -->	
+          <div class="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s" data-wow-offset="0">
+            <div class="single-pricing single-pricing-white">
+              <div class="price-head">								
+                <h2>Advance</h2>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <span class="price-label">Best</span>
+              <h1 class="price">$69</h1>
+              <h5>Monthly</h5>
+              <ul>
+                <li>15 website</li>
+                <li>50GB Disk Space</li>
+                <li>50 Email Accounts</li>
+                <li>50GB Monthly Bandwidth</li>
+                <li>10 Subdomains</li>
+                <li>15 Domains</li>
+                <li>Unlimited Support</li>
+              </ul>
+              <form action="/create-checkout-session" method="POST">
+                <button type="submit" id="checkout-button">Checkout</button>
+              </form>
+            </div>
+          </div><!--- END COL -->			  
+        </div><!--- END ROW -->
+      </div><!--- END CONTAINER -->
     </section>
   </body>
 </html>

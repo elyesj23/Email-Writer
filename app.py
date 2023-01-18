@@ -26,6 +26,7 @@ def index():
             max_tokens = 200
 
         language = flask.request.form.get("language")
+        style = flask.request.form.get("style")
         if language == "🇩🇪":
             prompt = (
                 (f"Type: Email\n"
@@ -61,6 +62,7 @@ def index():
         )
         print(prompt)
         print(language)
+        print(style)
         generated_message = completions.choices[0].text
 
        

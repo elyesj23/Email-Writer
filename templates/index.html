@@ -31,10 +31,6 @@
                         <ul class="dropdown-menu">
                           <li><a class="dropdown-item" href="#" onclick="changeFlag('🇩🇪','de')">🇩🇪</a></li>
                           <li><a class="dropdown-item" href="#" onclick="changeFlag('🇫🇷','fr')">🇫🇷</a></li>
-                          <li>
-                            <hr class="dropdown-divider">
-                          </li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                       </li>                      
             </div>
@@ -43,12 +39,22 @@
     <div style="display: flex;">
         <form action="/" method="post" style="flex: 1;">
             <input type="hidden" id="language" name="language" value="🇺🇸">
+            <input type="hidden" id="style" name="style" value="">
             <label for="sender">Sender:</label><br>
             <input type="text" id="sender" name="sender" value="{{ sender }}" placeholder="Jane" class="form-input">
             <label for="recipient">Recipient:</label><br>
             <input type="text" id="recipient" name="recipient" value="{{ recipient }}" placeholder="John" class="form-input"><br>
             <label for="subject">Subject:</label><br>
             <input type="text" id="subject" name="subject" value="{{ subject }}" class="form-input"><br>
+            <li class="nav-item dropdown">
+                <a id="style-button" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Style</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="changeStyle('formal')">Formal</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="changeStyle('professional')">Professional</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="changeStyle('friendly')">Friendly</a></li>
+                </ul>
+            </li>            
+            
             <label for="message">Message:</label><br>
             <textarea id="message" name="message" rows="4" cols="50" class="form-input">{{ message }}</textarea><br><br>
             <input type="submit" value="Submit" class="form-submit">
@@ -96,8 +102,14 @@
         });
         
         function changeFlag(flag, lang) {
-  document.getElementById("flag-button").innerHTML = flag;
-  document.getElementById("flag-button").href = '/' + lang;
+        document.getElementById("flag-button").innerHTML = flag;
+        document.getElementById("flag-button").href = '/' + lang;
+        }
+
+
+        function changeStyle(style) {
+    document.getElementById("style").value = style;
+    document.getElementById("style-button").innerHTML = style;
 }
 
         </script>

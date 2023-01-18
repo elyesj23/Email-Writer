@@ -11,7 +11,7 @@ function copyText() {
     textArea.select();
     document.execCommand("Copy");
     textArea.remove();
-    alert("Copied the text: " + text);
+    console.log("Copied the text: " + text);
 }
 document.documentElement.webkitRequestFullscreen();
 document.documentElement.setAttribute("webkit-reader", "false");
@@ -22,3 +22,13 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
     });
 });
 
+function changeFlag(flag, lang) {
+document.getElementById("flag-button").innerHTML = flag;
+document.getElementById("flag-button").href = '/' + lang;
+}
+
+
+function changeStyle(style) {
+document.getElementById("style-button").innerHTML = style;
+document.getElementById("style-button").href = '/' + style;
+}
