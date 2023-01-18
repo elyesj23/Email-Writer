@@ -25,17 +25,30 @@ def index():
         except ValueError:
             max_tokens = 200
 
-    #if language == "en"
-
-    #prompt = ( )
-
-        prompt = (
-            (f"Type: Email\n"
-            f"Von: {flask.request.form['sender']}\n"
-            f"An: {flask.request.form['recipient']}\n"
-            f"Thema: {flask.request.form['subject']}\n"
-            f"Format:Vollständig geschriebene Email in Deutsch\n"
-            f"\nSchreibe eine Email mit 175 Wörtern über  {flask.request.form['message']}\n"))
+        language = flask.request.form.get("language")
+        if language == "🇩🇪":
+            prompt = (
+                (f"Type: Email\n"
+                f"Von: {flask.request.form['sender']}\n"
+                f"An: {flask.request.form['recipient']}\n"
+                f"Thema: {flask.request.form['subject']}\n"
+                f"Format:Vollständig geschriebene Email in Deutsch\n"
+                f"\nSchreibe eine Email mit 175 Wörtern über  {flask.request.form['message']}\n"))
+        elif language == "🇫🇷":
+            prompt = (
+                (f"Type: Email\n"
+                f"De: {flask.request.form['sender']}\n"
+                f"A: {flask.request.form['recipient']}\n"
+                f"Sujet: {flask.request.form['subject']}\n"
+                f"Format: Email écrite en entier en français\n"
+                f"\nEcrivez un email de 175 mots sur {flask.request.form['message']}\n"))
+        else:
+            prompt = (
+                (f"Type: Email\n"
+                f"From: {flask.request.form['sender']}\n"
+                f"To: {flask.request.form['recipient']}\n"
+                f"Subject: {flask.request.form['subject']}\n"
+                f"\nWrite a 175 word email about {flask.request.form['message']}\n"))
 
         
         completions = openai.Completion.create(
@@ -47,6 +60,7 @@ def index():
             temperature=0.6,
         )
         print(prompt)
+        print(language)
         generated_message = completions.choices[0].text
 
        
@@ -69,7 +83,7 @@ def index():
             
              
 
-        return flask.render_template('index.html', sender=flask.request.form['sender'], greeting=greeting, beginning=beginning, body=body, sign_off=sign_off, recipient=flask.request.form['recipient'], subject=flask.request.form['subject'], message=flask.request.form['message'])
+        return flask.render_template('index.html', sender=flask.request.form['sender'], greeting=greeting,language=language, beginning=beginning, body=body, sign_off=sign_off, recipient=flask.request.form['recipient'], subject=flask.request.form['subject'], message=flask.request.form['message'])
     return flask.render_template('index.html')
 
 

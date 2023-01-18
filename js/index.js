@@ -15,3 +15,10 @@ function copyText() {
 }
 document.documentElement.webkitRequestFullscreen();
 document.documentElement.setAttribute("webkit-reader", "false");
+
+document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', e => {
+        document.getElementById('language').value = e.target.textContent;
+    });
+});
+

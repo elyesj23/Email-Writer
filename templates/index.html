@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="js/index.js"></script>
+    <script src="./js/index.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -26,11 +26,11 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
+                  🇺🇸
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">🇩🇪</a></li>
+                  <li><a class="dropdown-item" href="#">🇫🇷</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
@@ -40,6 +40,7 @@
       </nav>
     <div style="display: flex;">
         <form action="/" method="post" style="flex: 1;">
+            <input type="hidden" id="language" name="language" value="🇺🇸">
             <label for="sender">Sender:</label><br>
             <input type="text" id="sender" name="sender" value="{{ sender }}" placeholder="Jane" class="form-input">
             <label for="recipient">Recipient:</label><br>
