@@ -25,7 +25,9 @@ def index():
         except ValueError:
             max_tokens = 200
 
+    #if language == "en"
 
+    #prompt = ( )
 
         prompt = (
             (f"Type: Email\n"
