@@ -27,18 +27,16 @@
                         <a class="nav-link" href="/checkout">Premium</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  🇺🇸
-                </a>
+                        <a id="flag-button" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">🇺🇸</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">🇩🇪</a></li>
-                            <li><a class="dropdown-item" href="#">🇫🇷</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                          <li><a class="dropdown-item" href="#" onclick="changeFlag('🇩🇪','de')">🇩🇪</a></li>
+                          <li><a class="dropdown-item" href="#" onclick="changeFlag('🇫🇷','fr')">🇫🇷</a></li>
+                          <li>
+                            <hr class="dropdown-divider">
+                          </li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </li>
+                      </li>                      
             </div>
         </div>
     </nav>
@@ -86,7 +84,7 @@
             textArea.select();
             document.execCommand("Copy");
             textArea.remove();
-            alert("Copied the text: " + text);
+            console.log("Copied the text: " + text);
         }
         document.documentElement.webkitRequestFullscreen();
         document.documentElement.setAttribute("webkit-reader", "false");
@@ -95,7 +93,14 @@
             item.addEventListener('click', e => {
                 document.getElementById('language').value = e.target.textContent;
             });
-        });</script>
+        });
+        
+        function changeFlag(flag, lang) {
+  document.getElementById("flag-button").innerHTML = flag;
+  document.getElementById("flag-button").href = '/' + lang;
+}
+
+        </script>
 
 
 
