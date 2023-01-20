@@ -9,9 +9,11 @@ import os
 
 app = flask.Flask(__name__)
 
+@app.route('/')
+def home():
+    return render_template('home.html')
 
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/mail', methods=['GET', 'POST'])
 def index():
     if flask.request.method == 'POST':
         openai.api_key = "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"
