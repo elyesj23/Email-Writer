@@ -148,5 +148,5 @@ def update_user_access(customer_email, has_access):
     pass
 
 if __name__ == '__main__':
-    app.run(host="localhost",port=4242)
+    app.run(debug=True)
 

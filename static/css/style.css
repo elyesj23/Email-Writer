@@ -52,6 +52,7 @@ p {
 }
 
 #mail{
+    display: block;
     max-width: 500px;
     margin: 20px auto;
     background-color: #ffffff;
@@ -59,6 +60,11 @@ p {
     box-shadow: 0 10px 20px rgba(0,0,0,0.20);
     padding: 20px;
 }
+
+.hidden {
+    display: none;
+  }
+
 
 .form-input {
     width: 100%;
