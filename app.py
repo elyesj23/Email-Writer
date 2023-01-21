@@ -29,31 +29,26 @@ def index():
 
         language = flask.request.form.get("language")
         style = flask.request.form.get("style")
-        if language == "🇩🇪":
-            prompt = (
-                (f"Type: Email\n"
-                f"Von: {flask.request.form['sender']}\n"
-                f"An: {flask.request.form['recipient']}\n"
-                f"Thema: {flask.request.form['subject']}\n"
-                f"Format:Vollständig geschriebene Email in Deutsch\n"
-                f"\nSchreibe eine Email mit 175 Wörtern über  {flask.request.form['message']}\n"))
-        elif language == "🇫🇷":
-            prompt = (
-                (f"Type: Email\n"
-                f"De: {flask.request.form['sender']}\n"
-                f"A: {flask.request.form['recipient']}\n"
-                f"Sujet: {flask.request.form['subject']}\n"
-                f"Format: Email écrite en entier en français\n"
-                f"\nEcrivez un email de 175 mots sur {flask.request.form['message']}\n"))
-        else:
-            prompt = (
-                (f"Type: Email\n"
-                f"From: {flask.request.form['sender']}\n"
-                f"To: {flask.request.form['recipient']}\n"
-                f"Subject: {flask.request.form['subject']}\n"
-                f"\nWrite a 175 word email about {flask.request.form['message']}\n"))
+        respond  = flask.request.form.get("flexSwitchCheckDefault")
 
-        
+
+        if language == "🇩🇪":
+            if respond == "respond":
+                prompt = (
+                    (f"Type: Email\n"
+                    f"Von: {flask.request.form['sender']}\n"
+                    f"An: {flask.request.form['recipient']}\n"
+                    f"Thema: {flask.request.form['subject']}\n"
+                    f"Format:Antworte auf diese Email bitte in deutsch{flask.request.form['message']}\n"))
+            else:
+                prompt = (
+                    (f"Type: Email\n"
+                    f"Von: {flask.request.form['sender']}\n"
+                    f"An: {flask.request.form['recipient']}\n"
+                    f"Thema: {flask.request.form['subject']}\n"
+                    f"Format:Vollständig geschriebene Email in Deutsch\n"
+                    f"\nSchreibe eine Email mit 175 Wörtern über  {flask.request.form['message']}\n"))
+
         completions = openai.Completion.create(
             engine="text-davinci-002",
             prompt=prompt,
@@ -62,6 +57,7 @@ def index():
             stop=None,
             temperature=0.6,
         )
+        print(respond)
         print(prompt)
         print(language)
         print(style)
@@ -91,39 +87,12 @@ def index():
     return flask.render_template('index.html')
 
 
-stripe.api_key = "sk_test_51MQ8TIEsdTh7VZgicQGZEqhkIyjZPgSmlV0cQ3f8sG5jlazr6FxNqOjfTBigCjo9AbDxy7yJuumQzXhn6uWYpZ5000GSpY1BN8"
-endpoint_secret = 'whsec_a6cc887c04ddb9a429410362d58a4322f5b0cc9338e14c14158c5c7782f0774f'
-YOUR_DOMAIN = 'http://localhost:4242'
-#flask run --host=localhost --port=4242 
-
-
-@app.route('/create-checkout-session', methods=['POST'])
-def create_checkout_session():
-    try:
-        checkout_session = stripe.checkout.Session.create(
-            line_items=[
-                {
-                    # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                    'price': 'price_1MQE85EsdTh7VZgiDY4NJAsd',
-                    'quantity': 1,
-                },
-            ],
-            mode='subscription',
-            success_url=YOUR_DOMAIN + '//success?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url=YOUR_DOMAIN + '/cancel',
-            automatic_tax={'enabled': True},
-        )
-    except Exception as e:
-        return str(e)
-
-    return redirect(checkout_session.url, code=303)
-
 @app.route('/checkout')
 def checkout():
     return render_template('checkout.html')
 
-@app.route('/success')
-def success():
+@app.route('/success19')
+def success19():
     session_id = request.args.get('session_id')
     session = stripe.checkout.Session.retrieve(session_id)
     customer = stripe.Customer.retrieve(session.customer)
@@ -131,7 +100,30 @@ def success():
 
     print(customer_email)
     #SQL statement here 
-    return render_template('success.html', customer_email=customer_email)
+    return render_template('success19.html', customer_email=customer_email)
+
+@app.route('/success33')
+def success33():
+    session_id = request.args.get('session_id')
+    session = stripe.checkout.Session.retrieve(session_id)
+    customer = stripe.Customer.retrieve(session.customer)
+    customer_email = customer.email
+
+    print(customer_email)
+    #SQL statement here 
+    return render_template('success33.html', customer_email=customer_email)
+
+@app.route('/success299')
+def success299():
+    session_id = request.args.get('session_id')
+    session = stripe.checkout.Session.retrieve(session_id)
+    customer = stripe.Customer.retrieve(session.customer)
+    customer_email = customer.email
+
+    print(customer_email)
+    #SQL statement here 
+    return render_template('success299.html', customer_email=customer_email)
+redirect('/home')
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -144,6 +136,77 @@ def webhook():
         # Update the user's access in your database
         update_user_access(customer_email, False)
     return '', 200
+
+
+stripe.api_key = "sk_test_51MQ8TIEsdTh7VZgicQGZEqhkIyjZPgSmlV0cQ3f8sG5jlazr6FxNqOjfTBigCjo9AbDxy7yJuumQzXhn6uWYpZ5000GSpY1BN8"
+endpoint_secret = 'whsec_a6cc887c04ddb9a429410362d58a4322f5b0cc9338e14c14158c5c7782f0774f'
+YOUR_DOMAIN = 'http://localhost:4242'
+#flask run --host=localhost --port=4242 
+
+
+@app.route('/monthlyprivate', methods=['POST'])
+def monthlyprivate():
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
+                    # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                    #below is the price id  for 19$
+                    'price': 'price_1MQE85EsdTh7VZgiDY4NJAsd',
+                    'quantity': 1,
+                },
+            ],
+            mode='subscription',
+            success_url=YOUR_DOMAIN + '/success19?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=YOUR_DOMAIN + '/cancel',
+            automatic_tax={'enabled': True},
+        )
+    except Exception as e:
+        return str(e)
+
+    return redirect(checkout_session.url, code=303)
+
+@app.route('/monthlybussines', methods=['POST'])
+def monthlybussines():
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
+                    #this is for 34$
+                    'price': 'price_1MScKTEsdTh7VZgiVc9AnFV5',
+                    'quantity': 1,
+                },
+            ],
+            mode='subscription',
+            success_url=YOUR_DOMAIN + '/success33?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=YOUR_DOMAIN + '/cancel',
+            automatic_tax={'enabled': True},
+        )
+    except Exception as e:
+        return str(e)
+
+    return redirect(checkout_session.url, code=303)
+
+@app.route('/yearlybuissnes', methods=['POST'])
+def yearlybussines():
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
+                     #this is for 299$ yearly subscription
+                    'price': 'price_1MScImEsdTh7VZgihxBnnUUi',
+                    'quantity': 1,
+                },
+            ],
+            mode='subscription',
+            success_url=YOUR_DOMAIN + '/success299?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=YOUR_DOMAIN + '/cancel',
+            automatic_tax={'enabled': True},
+        )
+    except Exception as e:
+        return str(e)
+
+    return redirect(checkout_session.url, code=303)
 
 def update_user_access(customer_email, has_access):
     print('cancelled premium access')

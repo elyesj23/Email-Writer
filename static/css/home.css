@@ -1,51 +1,69 @@
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    background-color: #87CEEB; /* baby blue */
-    color: #000000; /* black */
-    height:100vh;
-  }
-  
-  h1,p{
-    margin:0 auto;
-}
- 
-  h1 {
-    font-size: 3em;
-    margin-top: 50px;
-  }
-  
-  p {
-    font-size: 1.5em;
-    margin-top: 20px;
-  }
-  
-  form {
-    margin-top: 50px;
-  }
-  
-  input[type="submit"] {
-    background-color: #00b0ff;
-    border: 0;
-    border-radius: 5px;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  input[type="submit"]:hover {
-    background-color: #0080c9;
-    transform: scale(1.1);
-  }
-  
-  input[type="submit"]:active {
-    background-color: #004080;
-    transform: scale(0.9);
-  }
-  
+      /* Add styles for the body and container */
+      body {
+        background-color: #f2f2f2;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+      }
+      /* Add styles for the header */
+      header {
+        background-image: url("https://images.unsplash.com/photo-1520376802651-d9d19b9c8f5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80");
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      /* Add styles for the header text */
+      header h1 {
+        font-size: 6rem;
+        color: #fff;
+        text-shadow: 2px 2px #333;
+        margin: 0;
+        padding: 0;
+      }
+      /* Add styles for the main section */
+      main {
+        padding: 4rem 0;
+      }
+      /* Add styles for the main section heading */
+      main h2 {
+        font-size: 3rem;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      /* Add styles for the main section paragraph */
+      main p {
+        font-size: 1.5rem;
+        color: #555;
+        line-height: 1.5;
+        margin: 2rem 0;
+        padding: 0;
+      }
+      /* Add styles for the call to action button */
+      .cta-btn {
+        background-color: #00b0ff;
+        border: 0;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        transition: background-color 0.2s ease-in-out;
+      }
+      /* Add hover effect for the call to action button */
+      .cta-btn:hover {
+        background-color: #005c99;
+        }
+
+

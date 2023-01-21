@@ -12,9 +12,10 @@
 <body>
     {% include 'navbar.html' %}
     <div style="display: flex;">
-        <form action="/" method="post" style="flex: 1;">
+        <form action="/mail" method="post" style="flex: 1;">
             <input type="hidden" id="language" name="language" value="🇺🇸">
             <input type="hidden" id="style" name="style" value="">
+            <input type="hidden" id="respond" name="respond" value="respond">
             <label for="sender">Sender:</label><br>
             <input type="text" id="sender" name="sender" value="{{ sender }}" placeholder="Jane" class="form-input">
             <label for="recipient">Recipient:</label><br>
@@ -28,7 +29,11 @@
                     <li><a class="dropdown-item" href="#" onclick="changeStyle('professional')">Professional</a></li>
                     <li><a class="dropdown-item" href="#" onclick="changeStyle('friendly')">Friendly</a></li>
                 </ul>
-            </li>            
+            </li>   
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+              </div>     
             
             <label for="message">Message:</label><br>
             <textarea id="message" name="message" rows="4" cols="50" class="form-input">{{ message }}</textarea><br><br>
@@ -101,6 +106,17 @@ function togglePlaceholder() {
     placeholder.classList.toggle("hidden");
     email.classList.toggle("hidden");
 }
+
+var switchInput = document.getElementById("flexSwitchCheckDefault");
+    switchInput.addEventListener("click", function(){
+        if(switchInput.checked) {
+            switchInput.value = "respond";
+            console.log(switchInput.value);
+        } else {
+            switchInput.value = "";
+            console.log(switchInput.value);
+        }
+    });
 
 
 
