@@ -29,18 +29,9 @@ def index():
 
         language = flask.request.form.get("language")
         style = flask.request.form.get("style")
-        respond  = flask.request.form.get("flexSwitchCheckDefault")
 
 
         if language == "🇩🇪":
-            if respond == "respond":
-                prompt = (
-                    (f"Type: Email\n"
-                    f"Von: {flask.request.form['sender']}\n"
-                    f"An: {flask.request.form['recipient']}\n"
-                    f"Thema: {flask.request.form['subject']}\n"
-                    f"Format:Antworte auf diese Email bitte in deutsch{flask.request.form['message']}\n"))
-            else:
                 prompt = (
                     (f"Type: Email\n"
                     f"Von: {flask.request.form['sender']}\n"
@@ -48,7 +39,25 @@ def index():
                     f"Thema: {flask.request.form['subject']}\n"
                     f"Format:Vollständig geschriebene Email in Deutsch\n"
                     f"\nSchreibe eine Email mit 175 Wörtern über  {flask.request.form['message']}\n"))
+                    
+        elif language == "🇺🇸":
+                prompt = (
+                    (f"Type: Email\n"
+                    f"From: {flask.request.form['sender']}\n"
+                    f"To: {flask.request.form['recipient']}\n"
+                    f"Subject: {flask.request.form['subject']}\n"
+                    f"Format:Fully written email in Deutsch\n"
+                    f"\nWrite an email with 175 words about {flask.request.form['message']}\n"))
 
+        elif language == "🇫🇷":
+                prompt = (
+                    (f"Type : Email\n"
+                    f"De : {flask.request.form['sender']}\n"
+                    f"À : {flask.request.form['recipient']}\n"
+                    f"Sujet : {flask.request.form['subject']}\n"
+                    f"Format:Email entièrement rédigé en français\n"
+                    f"\nÉcrivez un email de 175 mots sur {flask.request.form['message']}\n"))
+                    
         completions = openai.Completion.create(
             engine="text-davinci-002",
             prompt=prompt,
@@ -57,7 +66,6 @@ def index():
             stop=None,
             temperature=0.6,
         )
-        print(respond)
         print(prompt)
         print(language)
         print(style)
