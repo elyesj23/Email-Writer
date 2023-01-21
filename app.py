@@ -33,12 +33,7 @@ def index():
 
         if language == "🇩🇪":
                 prompt = (
-                    (f"Type: Email\n"
-                    f"Von: {flask.request.form['sender']}\n"
-                    f"An: {flask.request.form['recipient']}\n"
-                    f"Thema: {flask.request.form['subject']}\n"
-                    f"Format:Vollständig geschriebene Email in Deutsch\n"
-                    f"\nSchreibe eine Email mit 175 Wörtern über  {flask.request.form['message']}\n"))
+                    (f"schreibe eine antwort für diese email: {flask.request.form['message']}\n"))
                     
         elif language == "🇺🇸":
                 prompt = (
@@ -59,12 +54,14 @@ def index():
                     f"\nÉcrivez un email de 175 mots sur {flask.request.form['message']}\n"))
                     
         completions = openai.Completion.create(
-            engine="text-davinci-002",
+            model="text-davinci-003",
             prompt=prompt,
-            max_tokens=max_tokens,
-            n=1,
-            stop=None,
-            temperature=0.6,
+            temperature=0.7,
+            max_tokens=256,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+
         )
         print(prompt)
         print(language)
