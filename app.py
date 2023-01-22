@@ -8,6 +8,8 @@ import os
 
 
 app = flask.Flask(__name__)
+app.secret_key = 'dev'
+
 
 @app.route('/')
 def home():
@@ -15,7 +17,31 @@ def home():
 
 @app.route('/mail', methods=['GET', 'POST'])
 def index():
-    if flask.request.method == 'POST':
+    if flask.request.method == 'GET':
+        form_data = flask.session.get('form_data', {})
+        
+
+
+    elif flask.request.method == 'POST':
+        # Save form data to a session variable
+        flask.session['form_data'] = flask.request.form
+        
+        form_data = {}
+        if 'form_data' in flask.session:
+            # Retrieve form data from the session variable
+            form_data = flask.session.pop('form_data')
+        else:
+            # Set default values for form data
+            form_data = {
+                'sender': '',
+                'recipient': '',
+                'subject': '',
+                'message': '',
+                'language': '🇺🇸',
+                'style': 'professional',
+                'respond': ''
+        }
+
         openai.api_key = "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"
         length = 200
         max_tokens=200
@@ -29,22 +55,26 @@ def index():
 
         language = flask.request.form.get("language")
         style = flask.request.form.get("style")
+        respond = flask.request.form.get("flexSwitchCheckDefault")
 
 
         if language == "🇩🇪":
-                prompt = (
-                    (f"schreibe eine antwort für diese email: {flask.request.form['message']}\n"))
-                    
-        elif language == "🇺🇸":
+            if respond == "respond":
+                    prompt = (
+                        (f"schreibe eine antwort für diese email: {flask.request.form['message']}\n"))
+            else:
                 prompt = (
                     (f"Type: Email\n"
-                    f"From: {flask.request.form['sender']}\n"
-                    f"To: {flask.request.form['recipient']}\n"
-                    f"Subject: {flask.request.form['subject']}\n"
-                    f"Format:Fully written email in Deutsch\n"
-                    f"\nWrite an email with 175 words about {flask.request.form['message']}\n"))
-
-        elif language == "🇫🇷":
+                    f"Von: {flask.request.form['sender']}\n"
+                    f"Zu: {flask.request.form['recipient']}\n"
+                    f"Thea=ma: {flask.request.form['subject']}\n"
+                    f"Format:Fully written email in English\n"
+                    f"\nSchreibe eine Email über: {flask.request.form['message']}\n"))
+        if language == "🇫🇷":
+            if respond == "respond":
+                    prompt = (
+                        (f"respond in french to this mail: {flask.request.form['message']}\n"))
+            else:
                 prompt = (
                     (f"Type : Email\n"
                     f"De : {flask.request.form['sender']}\n"
@@ -52,6 +82,22 @@ def index():
                     f"Sujet : {flask.request.form['subject']}\n"
                     f"Format:Email entièrement rédigé en français\n"
                     f"\nÉcrivez un email de 175 mots sur {flask.request.form['message']}\n"))
+        if language == "🇺🇸":
+            if respond == "respond":
+                    prompt = (
+                        (f"Respond to this email: {flask.request.form['message']}\n"))
+            else:
+                prompt = (
+                    (f"Type: Email\n"
+                    f"From: {flask.request.form['sender']}\n"
+                    f"To: {flask.request.form['recipient']}\n"
+                    f"Subject: {flask.request.form['subject']}\n"
+                    f"Format:Fully written email in English\n"
+                    f"\nWrite an email with 175 words about {flask.request.form['message']}\n"))
+                    
+        
+
+    
                     
         completions = openai.Completion.create(
             model="text-davinci-003",
@@ -66,6 +112,7 @@ def index():
         print(prompt)
         print(language)
         print(style)
+        print(form_data)
         generated_message = completions.choices[0].text
 
        
@@ -88,8 +135,9 @@ def index():
             
              
 
-        return flask.render_template('index.html', sender=flask.request.form['sender'], greeting=greeting,language=language, beginning=beginning, body=body, sign_off=sign_off, recipient=flask.request.form['recipient'], subject=flask.request.form['subject'], message=flask.request.form['message'])
-    return flask.render_template('index.html')
+        return flask.render_template('index.html', form_data=form_data, greeting=greeting, beginning=beginning, body=body, sign_off=sign_off)
+
+    return flask.render_template('index.html', form_data=form_data)
 
 
 @app.route('/checkout')

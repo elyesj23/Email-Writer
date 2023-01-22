@@ -12,29 +12,41 @@
 <body>
     {% include 'navbar.html' %}
     <div style="display: flex;">
-        <form action="/mail" method="post" style="flex: 1;">
-            <input type="hidden" id="language" name="language" value="🇺🇸">
-            <input type="hidden" id="style" name="style" value="">
-            <input type="hidden" id="respond" name="respond" value="respond">
-            <label for="sender">Sender:</label><br>
-            <input type="text" id="sender" name="sender" value="{{ sender }}" placeholder="Jane" class="form-input">
-            <label for="recipient">Recipient:</label><br>
-            <input type="text" id="recipient" name="recipient" value="{{ recipient }}" placeholder="John" class="form-input"><br>
-            <label for="subject">Subject:</label><br>
-            <input type="text" id="subject" name="subject" value="{{ subject }}" class="form-input"><br>
-            <li class="nav-item dropdown">
-                <a id="style-button" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Style</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#" onclick="changeStyle('formal')">Formal</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="changeStyle('professional')">Professional</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="changeStyle('friendly')">Friendly</a></li>
-                </ul>
-            </li>      
+        <form method="post" action="/mail">
+            <label for="sender">Sender:</label>
+            <input type="text" id="sender" name="sender" value="{{form_data.sender}}"><br>
             
-            <label for="message">Message:</label><br>
-            <textarea id="message" name="message" rows="4" cols="50" class="form-input">{{ message }}</textarea><br><br>
-            <input type="submit" value="Submit" class="form-submit" onclick="togglePlaceholder()">
+            <label for="recipient">Recipient:</label>
+            <input type="text" id="recipient" name="recipient" value="{{form_data.recipient}}"><br>
+            
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" value="{{form_data.subject}}"><br>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" cols="50">{{ form_data.message }}</textarea><br>
+            
+            <label for="language">Language:</label>
+            <select id="language" name="language">
+                <option value="🇩🇪" {{ 'selected' if form_data.language == '🇩🇪' else '' }}>German</option>
+                <option value="🇫🇷" {{ 'selected' if form_data.language == '🇫🇷' else '' }}>French</option>
+                <option value="🇺🇸" {{ 'selected' if form_data.language == '🇺🇸' else '' }}>English</option>
+            </select><br>
+          
+            <label for="style">Style:</label>
+            <select id="style" name="style">
+                <option value="formal" {{ 'selected' if form_data.style == 'formal' else '' }}>Formal</option>
+                <option value="informal" {{ 'selected' if form_data.style == 'informal' else '' }}>Informal</option>
+            </select><br>
+          
+            <label for="flexSwitchCheckDefault">Respond:</label>
+            <input type="checkbox" id="flexSwitchCheckDefault" name="flexSwitchCheckDefault" value="respond" {{'checked' if form_data.respond == 'respond' else ''}}><br>
+          
+            <input type="submit" value="Submit">
         </form>
+        
+          
+          
+
 
         <div style="flex: 1; margin-left: 20px;" id="mail">
             <h2>Generated Email:</h2>
