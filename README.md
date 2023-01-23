@@ -1,6 +1,8 @@
 # Flask Template
 Basic structure for starting a Flask project with Jinja templates
 
+flask run --host=localhost --port=4242
+
 ---
 1. Clone this repository to local computer
 
