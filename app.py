@@ -128,7 +128,7 @@ def index():
                 'message': '',
                 'language': '🇺🇸',
                 'style': 'professional',
-                'respond': ''
+               
         }
         openai.api_key = "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"
         length = 200
