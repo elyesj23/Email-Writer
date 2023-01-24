@@ -222,6 +222,12 @@ def index():
 def checkout():
     return render_template('checkout.html')
 
+@app.route('/cancel')
+def cancel():
+    
+    return render_template('cancel.html')
+
+
 @app.route('/success19')
 def success19():
     session_id = request.args.get('session_id')
