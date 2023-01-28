@@ -130,7 +130,7 @@ def index():
                 'style': 'professional',
                
         }
-        openai.api_key = "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"
+        openai.api_key = "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"
         length = 200
         max_tokens=200
         try:
