@@ -99,14 +99,14 @@ def register():
 
 
 @app.route('/logout', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
 
 @app.route('/mail', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def index():
     if flask.request.method == 'GET':
         form_data = flask.session.get('form_data', {})
@@ -218,7 +218,7 @@ def index():
 
 
 @app.route('/checkout')
-@login_required
+#@login_required
 def checkout():
     return render_template('checkout.html')
 
